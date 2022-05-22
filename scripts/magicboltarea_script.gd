@@ -1,17 +1,18 @@
 extends Area2D
 
-var nearbyenemies = []
+var nearbyEnemies = []
 
-var closestenemy = null
+var closestEnemy = null
 
 func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	closestenemy = findClosestCanvasItemInArray(global_position,nearbyenemies)
+	closestEnemy = findClosestCanvasItemInArray(global_position, nearbyEnemies)
 	
 
 #handles aiming at closest enemies
+#Move this to a base class later
 func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -> CanvasItem:
 	assert(canvasItems != null)
 
@@ -34,10 +35,10 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 func _on_magicboltarea_body_entered(body):
 	var type = body.get_meta("type")
 	if type == "baddie":
-		nearbyenemies.append(body)
+		nearbyEnemies.append(body)
 	
 
 func _on_magicboltarea_body_exited(body):
 	var type = body.get_meta("type")
 	if type == "baddie":
-		nearbyenemies.erase(body)
+		nearbyEnemies.erase(body)

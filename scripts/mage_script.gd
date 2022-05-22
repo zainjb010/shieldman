@@ -1,23 +1,23 @@
 extends KinematicBody2D
 
 
-var currenttarget = null
+var currentTarget = null
 
-onready var magicboltarea = $magicboltarea
+onready var attackRange = $Range
 
-onready var magicbolt = $magicbolt
+onready var bulletSpawner = $BulletSpawner
 
 
 func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	if magicboltarea.closestenemy != null:
-		currenttarget = magicboltarea.closestenemy
-	if currenttarget == null or ! is_instance_valid(currenttarget):
-		magicbolt.direction = Vector2(0,0)
+	if attackRange.closestEnemy != null:
+		currentTarget = attackRange.closestEnemy
+	if currentTarget == null or ! is_instance_valid(currentTarget):
+		bulletSpawner.direction = Vector2(0, 0)
 		return
-	if is_instance_valid(currenttarget):
-		var firingdirection = global_position.direction_to(currenttarget.global_position)	
-		magicbolt.direction = firingdirection
+	if is_instance_valid(currentTarget):
+		var firingDirection = global_position.direction_to(currentTarget.global_position)
+		bulletSpawner.direction = firingDirection
 		
