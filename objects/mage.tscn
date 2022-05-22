@@ -21,17 +21,17 @@ texture = ExtResource( 3 )
 shape = SubResource( 1 )
 disabled = true
 
-[node name="magicbolt" type="Node2D" parent="."]
+[node name="BulletSpawner" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="firingspeed" type="Timer" parent="magicbolt"]
+[node name="FiringSpeed" type="Timer" parent="BulletSpawner"]
 
-[node name="magicboltarea" type="Area2D" parent="."]
+[node name="Range" type="Area2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="magicboltarea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 2 )
 
-[connection signal="timeout" from="magicbolt/firingspeed" to="magicbolt" method="_on_firingspeed_timeout"]
-[connection signal="body_entered" from="magicboltarea" to="magicboltarea" method="_on_magicboltarea_body_entered"]
-[connection signal="body_exited" from="magicboltarea" to="magicboltarea" method="_on_magicboltarea_body_exited"]
+[connection signal="timeout" from="BulletSpawner/FiringSpeed" to="BulletSpawner" method="_on_firingspeed_timeout"]
+[connection signal="body_entered" from="Range" to="Range" method="_on_magicboltarea_body_entered"]
+[connection signal="body_exited" from="Range" to="Range" method="_on_magicboltarea_body_exited"]

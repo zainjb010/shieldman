@@ -1,8 +1,8 @@
 extends Node2D
 
-onready var firingspeed = $firingspeed
+onready var firingSpeed = $FiringSpeed
 
-var bulletobject = preload("res://objects/Bullet.tscn")
+var bulletObject = preload("res://objects/Bullet.tscn")
 
 var direction = Vector2(0,0)
 
@@ -10,19 +10,16 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if direction != Vector2(0,0) and firingspeed.is_stopped():
+	if direction != Vector2(0,0) and firingSpeed.is_stopped():
 		fire()
 		
-	
-
 func fire():
-	var bullet = bulletobject.instance()
-	bullet.bulletdirection = direction
+	#Instantiates a bullet object, and gives it an initial direction
+	var bullet = bulletObject.instance()
+	bullet.bulletDirection = direction
 	add_child(bullet)
-	firingspeed.start()
+	firingSpeed.start()
 	
-
-
 func _on_firingspeed_timeout():
-	firingspeed.stop()
+	firingSpeed.stop()
 
