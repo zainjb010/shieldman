@@ -1,6 +1,7 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
 func _physics_process(delta):
+	#Finds the closest target and fires at it
 	ranges.closestTarget = findClosestCanvasItemInArray(global_position, ranges.nearbyTargets)
 	if ranges.closestTarget != null:
 		currentTarget = ranges.closestTarget

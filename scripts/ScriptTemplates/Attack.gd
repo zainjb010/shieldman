@@ -1,5 +1,6 @@
 extends Node
 
+#Stores data for a given attack
 export var attackName = ""
 export var type = ""
 export var speed = 0

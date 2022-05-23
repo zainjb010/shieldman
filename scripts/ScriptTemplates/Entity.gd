@@ -11,8 +11,6 @@ onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
 onready var ranges = $Ranges
-#onready var attackRange = $Range
-#onready var detectRange = $Detection
 
 var currentTarget = null
 var moveDirection = Vector2(0, 0)
@@ -25,8 +23,6 @@ export (Resource) var stats
 
 export var health = 0
 export var speed = 500
-#export var collisionRadius = 32
-#export var detectionRadius = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,6 +70,7 @@ func move(direction):
 	move_and_slide(speed * moveDirection)
 
 func selectAttack():
+	#Searches list of available attacks; returns the attack with longest cooldown
 	var selected = null
 	if availableAttacks.empty():
 		return null
@@ -84,10 +81,13 @@ func selectAttack():
 	return selected
 
 func refreshAttack(attackNode):
+	#Function for returning an attack to the available list
+	#Accepts an Attack Node
 	availableAttacks.append(attackNode)
 	pass
 
 func attack(attackNode):
+	#Uses the given Attack Node to generate the proper attack in the projectile spawner
 	if attackNode == null:
 		return
 	#Use the given attack and remove it from the list of available attacks
@@ -100,13 +100,16 @@ func attack(attackNode):
 			get_meta("type")
 			)
 		
+	#Start the attack's cooldown timer and remove it from the list of available attacks
 	attackNode.timer.start()
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(amount, type):
+func takeDamage(amount: int, type: String) -> int:
+	#Placeholder function
+	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
 	queue_free()
-	pass
+	return 0
 
 #Handles finding closest enemies to the entity
 func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -> CanvasItem:

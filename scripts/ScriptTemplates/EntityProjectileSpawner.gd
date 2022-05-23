@@ -5,7 +5,8 @@ var bulletObject = preload("res://objects/ObjectTemplates/Bullet.tscn")
 func _ready():
 	pass
 
-func fire(sprite, hitboxRadius, direction, duration, entityType):
+func fire(sprite : Texture, hitboxRadius : float, direction : Vector2, duration : float, entityType : String):
+	#Using an attack's parameters, generates the proper projectile and gives it parameters
 	var bullet = bulletObject.instance()
 	bullet.bulletDirection = direction
 	bullet.sprite = sprite

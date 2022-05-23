@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+#Stores a given projectile's data, and processes its movement
 var bulletDirection = Vector2(0, 0)
 
 onready var hitbox = $CollisionShape2D

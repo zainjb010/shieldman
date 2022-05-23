@@ -6,5 +6,6 @@ var playerPosition = Vector2(0, 0)
 func _ready():
 	pass # Replace with function body.
 
+#This function is deprecated
 func updatePosition(value):
 	playerPosition = value

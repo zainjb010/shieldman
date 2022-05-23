@@ -3,6 +3,7 @@ extends Node
 const DEFAULT_MASS: = 2.0
 const DEFAULT_MAX_SPEED: = 400.0
 
+#Function for smooth tracking of a given target
 static func follow(
 	velocity: Vector2,
 	global_position: Vector2,

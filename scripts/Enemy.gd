@@ -1,6 +1,7 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
 func _physics_process(delta):
+	#Finds closest enemy within the detection range and moves towards it
 	ranges.closestEntity = findClosestCanvasItemInArray(global_position, ranges.nearbyEntities)
 	if ranges.closestEntity != null:
 		moveDirection = Follow.follow(
