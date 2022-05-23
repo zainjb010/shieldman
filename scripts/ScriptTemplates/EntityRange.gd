@@ -3,6 +3,7 @@ extends Area2D
 onready var area = $CollisionShape2D
 
 var nearbyEntities = []
+var closestEntity = null
 
 func _ready():
 	pass

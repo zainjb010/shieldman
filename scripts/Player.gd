@@ -6,6 +6,7 @@ func _ready():
 	connect("positionChanged", globalData, "updatePosition")
 	#Set other entity variables here
 	health = 20
+	speed = 500
 	entityCollision.shape.radius = 32
 
 func _physics_process(delta):

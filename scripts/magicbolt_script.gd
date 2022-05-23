@@ -2,7 +2,7 @@ extends Node2D
 
 onready var firingSpeed = $FiringSpeed
 
-var bulletObject = preload("res://objects/Bullet.tscn")
+var bulletObject = preload("res://objects/ObjectTemplates/Bullet.tscn")
 
 var direction = Vector2(0,0)
 

@@ -30,8 +30,6 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 
 	return closestCanvasItem
 
-
-
 func _on_magicboltarea_body_entered(body):
 	var type = body.get_meta("type")
 	if type == "baddie":

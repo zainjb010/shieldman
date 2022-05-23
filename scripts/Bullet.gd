@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 var bulletDirection = Vector2(0, 0)
 
+onready var hitbox = $CollisionShape2D
+onready var sprite = $Sprite
+
 export var speed = 9
 
 func _ready():

@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource( 1 )
 name = "Magic Bolt"
+type = "ranged"
 sprite = ExtResource( 2 )
 speed = 9.0
 cooldown = 1.0
+hitboxRadius = 10.0
