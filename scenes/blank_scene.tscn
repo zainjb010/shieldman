@@ -1,25 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://objects/shieldman.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/baddie.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/mage.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/Actors/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Actors/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/Actors/PartyMember.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/PartyMembers/Mage.tres" type="Resource" id=4]
+[ext_resource path="res://resources/Enemies/BasicEnemy.tres" type="Resource" id=5]
 
 [node name="blankscene" type="Node2D"]
 
-[node name="mage" parent="." instance=ExtResource( 3 )]
-position = Vector2( 941, 67 )
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 516.384, 262.246 )
+collision_mask = 1
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 585, 266 )
+[node name="PartyMember" parent="." instance=ExtResource( 3 )]
+position = Vector2( 885.039, 344.301 )
+stats = ExtResource( 4 )
 
-[node name="baddie" parent="." instance=ExtResource( 2 )]
-position = Vector2( 456, 508 )
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 170.325, 326.463 )
+stats = ExtResource( 5 )
 
-[node name="baddie2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 203, 337 )
+[node name="Enemy2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 214.326, 421.599 )
+stats = ExtResource( 5 )
 
-[node name="baddie3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 181, 203 )
+[node name="Enemy3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 313.03, 485.817 )
+stats = ExtResource( 5 )
 
-[node name="baddie4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 267, 490 )
+[node name="Enemy4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 448.6, 488.262 )
+stats = ExtResource( 5 )

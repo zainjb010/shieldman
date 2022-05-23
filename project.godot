@@ -8,11 +8,46 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://resources/Enemies/Enemy.gd"
+}, {
+"base": "Resource",
+"class": "PartyMember",
+"language": "GDScript",
+"path": "res://resources/PartyMembers/PartyMember.gd"
+}, {
+"base": "Resource",
+"class": "ProjectileAttack",
+"language": "GDScript",
+"path": "res://resources/Attacks/ProjectileAttack.gd"
+} ]
+_global_script_class_icons={
+"Enemy": "",
+"PartyMember": "",
+"ProjectileAttack": ""
+}
+
 [application]
 
 config/name="Zain's Big Game"
-run/main_scene="res://scenes/globalnode.tscn"
+run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Follow="*res://scripts/Utils/Follow.gd"
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="party"
+2d_physics/layer_3="enemies"
+2d_physics/layer_4="party projectiles"
+2d_physics/layer_5="enemy projectiles"
+2d_physics/layer_6="world"
 
 [physics]
 
