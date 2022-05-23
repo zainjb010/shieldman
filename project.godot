@@ -36,6 +36,10 @@ config/name="Zain's Big Game"
 run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Follow="*res://scripts/Utils/Follow.gd"
+
 [layer_names]
 
 2d_physics/layer_1="player"

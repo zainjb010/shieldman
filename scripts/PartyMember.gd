@@ -1,9 +1,9 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
 func _physics_process(delta):
-	attackRange.closestEntity = attackRange.findClosestCanvasItemInArray(global_position, attackRange.nearbyEntities)
-	if attackRange.closestEntity != null:
-		currentTarget = attackRange.closestEntity
+	ranges.closestTarget = findClosestCanvasItemInArray(global_position, ranges.nearbyTargets)
+	if ranges.closestTarget != null:
+		currentTarget = ranges.closestTarget
 	if currentTarget == null or ! is_instance_valid(currentTarget):
 		attackDirection = Vector2(0, 0)
 		return

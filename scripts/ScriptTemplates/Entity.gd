@@ -10,7 +10,9 @@ onready var sprite = $Sprite
 onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
-onready var attackRange = $Range
+onready var ranges = $Ranges
+#onready var attackRange = $Range
+#onready var detectRange = $Detection
 
 var currentTarget = null
 var moveDirection = Vector2(0, 0)
@@ -39,7 +41,8 @@ func initialize():
 		health = stats.health
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
-		attackRange.area.shape.radius = stats.attackRadius
+		ranges.attackRangeCollision.shape.radius = stats.attackRadius
+		ranges.detectionRangeCollision.shape.radius = stats.detectRadius
 		for attack in stats.attacks:
 			addAttack(attack.name)
 	
@@ -104,3 +107,21 @@ func attack(attackNode):
 func takeDamage(amount, type):
 	queue_free()
 	pass
+
+#Handles finding closest enemies to the entity
+func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -> CanvasItem:
+	assert(canvasItems != null)
+
+	var closestCanvasItem = null
+	var closestDistanceSquared = INF
+
+	for canvasItem in canvasItems:
+		assert(canvasItem is CanvasItem)
+
+		var distanceSquared = globalPosition.distance_squared_to(canvasItem.global_position)
+
+		if not closestCanvasItem or distanceSquared < closestDistanceSquared:
+			closestCanvasItem = canvasItem
+			closestDistanceSquared = distanceSquared
+
+	return closestCanvasItem
