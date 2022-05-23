@@ -8,8 +8,11 @@
 [sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 360.0
 
 [node name="Entity" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Attacks" type="Node" parent="."]
@@ -24,6 +27,8 @@ texture = ExtResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]

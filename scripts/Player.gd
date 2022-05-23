@@ -3,6 +3,7 @@ extends "res://scripts/ScriptTemplates/Entity.gd"
 signal positionChanged(position)
 
 func _ready():
+	set_meta("type", "player")
 	connect("positionChanged", globalData, "updatePosition")
 	#Set other entity variables here
 	health = 20

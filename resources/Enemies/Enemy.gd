@@ -1,9 +1,9 @@
 extends Resource
 
-class_name PartyMember
+class_name Enemy
 
 export var name : String = ""
-export var type : String = ""
+export var type : String = "baddie"
 
 export var sprite : Texture
 

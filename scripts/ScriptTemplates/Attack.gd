@@ -3,8 +3,10 @@ extends Node
 export var attackName = ""
 export var type = ""
 export var speed = 0
+export var missileCount = 0
 export var cooldown = 0
 export var hitboxRadius = 0
+export var duration = 0
 export var sprite : Texture
 
 onready var timer = $Timer

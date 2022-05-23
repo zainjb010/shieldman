@@ -10,7 +10,8 @@ func _physics_process(delta):
 	if is_instance_valid(currentTarget):
 		var firingDirection = global_position.direction_to(currentTarget.global_position)
 		attackDirection = firingDirection
-		var selectedAttack = selectAttack()
-		if selectedAttack != null:
-			attack(selectedAttack)
+		#var selectedAttack = selectAttack()
+		#if selectedAttack != null:
+			#attack(selectedAttack)
+		attack(selectAttack())
 	pass

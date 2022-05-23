@@ -28,18 +28,18 @@ export var speed = 500
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#entityCollision.shape.radius = collisionRadius
-	#attackRange.area.shape.radius = detectionRadius
+	set_meta("type", "entity")
 	initialize()
 
 func initialize():
 	#set variables based on resource
 	if stats != null:
-		sprite.texture = stats.icon
+		set_meta("type", stats.type)
+		sprite.texture = stats.sprite
 		health = stats.health
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
-		attackRange.area.shape.radius = stats.detectionRadius
+		attackRange.area.shape.radius = stats.attackRadius
 		for attack in stats.attacks:
 			addAttack(attack.name)
 	
@@ -57,8 +57,10 @@ func addAttack(attackName):
 		newAttack.type = attack.type
 		newAttack.attackName = attack.name
 		newAttack.speed = attack.speed
+		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
+		newAttack.duration = attack.duration
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)
 		#Append the new attack to the list of available attacks; this may become optional
@@ -69,8 +71,9 @@ func move(direction):
 	move_and_slide(speed * moveDirection)
 
 func selectAttack():
-	print(availableAttacks)
 	var selected = null
+	if availableAttacks.empty():
+		return null
 	for item in availableAttacks:
 		#Prefer the attack with the longest cooldown
 		if selected == null or item.cooldown > selected.cooldown:
@@ -82,11 +85,22 @@ func refreshAttack(attackNode):
 	pass
 
 func attack(attackNode):
-	print("here")
+	if attackNode == null:
+		return
 	#Use the given attack and remove it from the list of available attacks
-	if attackNode.type == "ranged":
-		projectileSpawner.fire(attackNode.sprite, attackNode.hitboxRadius, attackDirection)
+	if attackNode.type == "missile":
+		projectileSpawner.fire(
+			attackNode.sprite, 
+			attackNode.hitboxRadius, 
+			attackDirection, 
+			attackNode.duration,
+			get_meta("type")
+			)
 		
 	attackNode.timer.start()
 	availableAttacks.erase(attackNode)
+	pass
+
+func takeDamage(amount, type):
+	queue_free()
 	pass

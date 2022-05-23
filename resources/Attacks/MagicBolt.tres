@@ -6,8 +6,11 @@
 [resource]
 script = ExtResource( 1 )
 name = "Magic Bolt"
-type = "ranged"
+type = "missile"
 sprite = ExtResource( 2 )
+damage = 1
 speed = 9.0
+missileCount = 1
 cooldown = 1.0
 hitboxRadius = 10.0
+duration = 5.0

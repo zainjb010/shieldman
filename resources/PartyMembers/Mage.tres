@@ -7,9 +7,11 @@
 [resource]
 script = ExtResource( 1 )
 name = "Mage"
-icon = ExtResource( 2 )
+type = "party"
+sprite = ExtResource( 2 )
 health = 15
 speed = 500.0
 collisionRadius = 32.0
-detectionRadius = 360.0
+attackRadius = 360.0
+detectRadius = 500.0
 attacks = [ ExtResource( 3 ) ]
