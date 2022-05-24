@@ -23,6 +23,7 @@ var availableAttacks = []
 export (Resource) var stats
 
 export var health = 0
+var currentHealth = 0
 export var speed = 500
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +37,7 @@ func initialize():
 		set_meta("type", stats.type)
 		sprite.texture = stats.sprite
 		health = stats.health
+		currentHealth = stats.health
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
 		ranges.attackRangeCollision.shape.radius = stats.attackRadius
@@ -55,6 +57,7 @@ func addAttack(attackName):
 		var newAttack = attackObject.instance()
 		newAttack.sprite = attack.sprite
 		newAttack.type = attack.type
+		newAttack.damage = attack.damage
 		newAttack.attackName = attack.name
 		newAttack.speed = attack.speed
 		newAttack.missileCount = attack.missileCount
@@ -93,24 +96,36 @@ func attack(attackNode):
 		return
 	#Use the given attack and remove it from the list of available attacks
 	if attackNode.type == "missile":
+		#projectileSpawner.fire(
+			#self,
+			#attackNode.sprite, 
+			#attackNode.hitboxRadius, 
+			#attackDirection, 
+			#attackNode.duration
+			#)
 		projectileSpawner.fire(
-			attackNode.sprite, 
-			attackNode.hitboxRadius, 
-			attackDirection, 
-			attackNode.duration,
-			get_meta("type")
-			)
+			self,
+			attackNode,
+			attackDirection
+		)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
 	attackNode.timer.start()
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(amount: int, type: String) -> int:
+func takeDamage(source: Node, amount: int, type: String) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
+	#Returns the actual amount of damage taken
+	currentHealth = currentHealth - amount
+	if currentHealth <= 0:
+		die()
+	#Update health bar here
+	return amount
+
+func die():
 	queue_free()
-	return 0
 
 #Handles finding closest enemies to the entity
 func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -> CanvasItem:

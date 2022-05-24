@@ -1,5 +1,8 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
+var aggroTarget = null
+var aggroTable = []
+
 func selectMoveTarget():
 	if ranges.nearbyEntities.empty():
 		return null
@@ -12,7 +15,10 @@ func selectMoveTarget():
 		return moveTarget
 
 func selectTarget():
+	#Finds the target with the highest aggro value in range
 	#Finds the closest target
+	for item in aggroTable:
+		print(item["source"].name, " ", item["value"])
 	if ranges.nearbyTargets.empty():
 		return null
 	ranges.closestTarget = findClosestCanvasItemInArray(global_position, ranges.nearbyTargets)
@@ -23,3 +29,20 @@ func selectTarget():
 		return null
 	if is_instance_valid(currentTarget):
 		return currentTarget
+
+func takeDamage(source: Node, amount: int, type: String) -> int:
+	#Add the source of the damage to an aggro table
+	var damage = .takeDamage(source, amount, type)
+	for item in aggroTable:
+		if item["source"] == source:
+			item["value"] += damage
+			return damage
+	aggroTable.append(
+		{
+			"source": source,
+			"value": damage
+		}
+	)
+	for item in aggroTable:
+		print(item["source"].name, " ", item["value"])
+	return damage

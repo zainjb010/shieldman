@@ -3,6 +3,7 @@ extends Node
 #Stores data for a given attack
 export var attackName = ""
 export var type = ""
+export var damage = 0
 export var speed = 0
 export var missileCount = 0
 export var cooldown = 0

@@ -41,6 +41,9 @@ shape = SubResource( 1 )
 [node name="Ranges" parent="." index="5"]
 script = ExtResource( 3 )
 
+[node name="Range" parent="Ranges" index="0"]
+collision_mask = 3
+
 [node name="Collision" parent="Ranges/Range" index="0"]
 shape = SubResource( 2 )
 
