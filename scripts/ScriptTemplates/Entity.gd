@@ -95,19 +95,11 @@ func attack(attackNode):
 	if attackNode == null:
 		return
 	#Use the given attack and remove it from the list of available attacks
-	if attackNode.type == "missile":
-		#projectileSpawner.fire(
-			#self,
-			#attackNode.sprite, 
-			#attackNode.hitboxRadius, 
-			#attackDirection, 
-			#attackNode.duration
-			#)
-		projectileSpawner.fire(
-			self,
-			attackNode,
-			attackDirection
-		)
+	projectileSpawner.fire(
+		self,
+		attackNode,
+		attackDirection
+	)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
 	attackNode.timer.start()
@@ -118,6 +110,8 @@ func takeDamage(source: Node, amount: int, type: String) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
 	#Returns the actual amount of damage taken
+	if type == "none":
+		amount = 0
 	currentHealth = currentHealth - amount
 	if currentHealth <= 0:
 		die()

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://resources/Attacks/ProjectileAttack.gd" type="Script" id=1]
+[ext_resource path="res://resources/Attacks/Attack.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [resource]
@@ -9,6 +9,7 @@ name = "Magic Bolt"
 type = "missile"
 sprite = ExtResource( 2 )
 damage = 1
+damageType = "magic"
 speed = 9.0
 missileCount = 1
 cooldown = 1.0

@@ -20,6 +20,11 @@ func getInputDirection():
 	moveDirection = inputvector.normalized()
 	return moveDirection
 
+func _input(event):
+	if event.is_action_pressed("ui_select"):
+		attack($Attacks/Taunt)
+	pass
+
 #func _physics_process(delta):
 	#if global_position != previousPosition:
 			#emit_signal("positionChanged", global_position)

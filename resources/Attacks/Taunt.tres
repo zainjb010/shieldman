@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/Attacks/Attack.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Taunt"
+type = "zone"
+damage = 10
+damageType = "none"
+speed = 0.0
+missileCount = 1
+cooldown = 3.0
+hitboxRadius = 150.0
+duration = 1.0
