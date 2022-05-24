@@ -67,7 +67,7 @@ func addAttack(attackName):
 
 func move(direction):
 	previousPosition = global_position
-	move_and_slide(speed * moveDirection)
+	move_and_slide(speed * direction)
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
