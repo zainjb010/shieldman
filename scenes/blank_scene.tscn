@@ -17,17 +17,17 @@ position = Vector2( 885.039, 344.301 )
 stats = ExtResource( 4 )
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 170.325, 326.463 )
+position = Vector2( 86.4222, 105.728 )
 stats = ExtResource( 5 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 214.326, 421.599 )
+position = Vector2( 85.0715, 206.528 )
 stats = ExtResource( 5 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 313.03, 485.817 )
+position = Vector2( 94.3294, 313.827 )
 stats = ExtResource( 5 )
 
 [node name="Enemy4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 448.6, 488.262 )
+position = Vector2( 91.3481, 425.054 )
 stats = ExtResource( 5 )

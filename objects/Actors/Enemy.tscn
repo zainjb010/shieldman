@@ -1,16 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objects/ObjectTemplates/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://scripts/EnemyRange.gd" type="Script" id=3]
+[ext_resource path="res://scripts/States/Enemy/EnemyAttack.gd" type="Script" id=4]
+[ext_resource path="res://scripts/States/Enemy/EnemyIdle.gd" type="Script" id=5]
+[ext_resource path="res://scripts/States/Enemy/EnemyStateMachine.gd" type="Script" id=6]
+[ext_resource path="res://scripts/States/Enemy/EnemyMove.gd" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 resource_local_to_scene = true
 radius = 360.0
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 resource_local_to_scene = true
 
 [node name="Enemy" instance=ExtResource( 1 )]
@@ -19,7 +23,17 @@ collision_mask = 39
 script = ExtResource( 2 )
 
 [node name="StateMachine" parent="." index="1"]
-script = null
+script = ExtResource( 6 )
+START_STATE = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+script = ExtResource( 5 )
+
+[node name="Move" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 7 )
+
+[node name="Attack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 4 )
 
 [node name="EntityCollision" parent="." index="2"]
 shape = SubResource( 1 )
@@ -28,7 +42,7 @@ shape = SubResource( 1 )
 script = ExtResource( 3 )
 
 [node name="Collision" parent="Ranges/Range" index="0"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Collision" parent="Ranges/Detection" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )

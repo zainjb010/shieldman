@@ -12,6 +12,7 @@ onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
 onready var ranges = $Ranges
 
+var moveTarget = null
 var currentTarget = null
 var moveDirection = Vector2(0, 0)
 var attackDirection = Vector2(0, 0)
