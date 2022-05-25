@@ -2,6 +2,7 @@ extends Node2D
 
 var bulletObject = preload("res://objects/ObjectTemplates/Bullet.tscn")
 var zoneObject = preload("res://objects/ObjectTemplates/Zone.tscn")
+var meleeObject = preload("res://objects/ObjectTemplates/Melee.tscn")
 
 func _ready():
 	pass
@@ -15,7 +16,9 @@ func fire(source: Node, attack: Node, direction: Vector2):
 		projectile.source = source
 		projectile.bulletDirection = direction
 		projectile.sprite = attack.sprite
+		projectile.speed = attack.speed
 		projectile.duration = attack.duration
+		projectile.firingArc = attack.firingArc
 		projectile.damage = attack.damage
 		projectile.damageType = attack.damageType
 	if attack.type == "zone":
@@ -26,6 +29,18 @@ func fire(source: Node, attack: Node, direction: Vector2):
 		projectile.damage = attack.damage
 		projectile.damageType = attack.damageType
 		projectile.hitboxRadius = attack.hitboxRadius
+	if attack.type == "melee":
+		projectile = meleeObject.instance()
+		projectile.source = source
+		projectile.direction = direction
+		projectile.sprite = attack.sprite
+		projectile.speed = attack.speed
+		projectile.duration = attack.duration
+		projectile.firingArc = attack.firingArc
+		projectile.damage = attack.damage
+		projectile.damageType = attack.damageType
+		projectile.hitboxRadius = attack.hitboxRadius
+		#projectile.global_position = (direction.normalized() * owner.ranges.attackRangeCollision.shape.radius) - (direction.normalized() * projectile.hitboxRadius)
 		
 	if source.get_meta("type") == "party" or source.get_meta("type") == "player":
 		projectile.set_collision_mask_bit(2, true)

@@ -11,6 +11,7 @@ export(NodePath) var source = null
 export var damage = 0
 export var damageType = "magic"
 export var speed = 9
+export var firingArc = 0
 export var duration = 0
 
 func _ready():

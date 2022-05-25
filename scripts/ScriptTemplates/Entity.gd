@@ -63,6 +63,7 @@ func addAttack(attackName):
 		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
+		newAttack.firingArc = attack.firingArc
 		newAttack.duration = attack.duration
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)

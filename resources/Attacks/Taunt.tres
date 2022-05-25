@@ -12,4 +12,5 @@ speed = 0.0
 missileCount = 1
 cooldown = 3.0
 hitboxRadius = 150.0
+firingArc = 0.0
 duration = 1.0

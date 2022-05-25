@@ -11,6 +11,7 @@ func _ready():
 	currentHealth = 20
 	speed = 500
 	entityCollision.shape.radius = 32
+	availableAttacks.append($Attacks/Taunt)
 
 func getInputDirection():
 	var inputvector = Vector2 (
@@ -21,7 +22,7 @@ func getInputDirection():
 	return moveDirection
 
 func _input(event):
-	if event.is_action_pressed("ui_select"):
+	if event.is_action_pressed("ui_select") and availableAttacks.has($Attacks/Taunt):
 		attack($Attacks/Taunt)
 	pass
 

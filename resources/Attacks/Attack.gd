@@ -15,4 +15,5 @@ export var speed : float
 export var missileCount : int
 export var cooldown : float
 export var hitboxRadius : float
+export var firingArc : float
 export var duration : float
