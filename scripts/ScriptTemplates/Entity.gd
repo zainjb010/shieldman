@@ -6,6 +6,7 @@ var attackObject = preload("res://objects/ObjectTemplates/Attack.tscn")
 
 onready var globalData = get_tree().get_root().get_node("GlobalNode")
 
+onready var recovery = $Recovery
 onready var sprite = $Sprite
 onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
@@ -19,6 +20,7 @@ var moveDirection = Vector2(0, 0)
 var attackDirection = Vector2(0, 0)
 var previousPosition = Vector2(0, 0)
 var availableAttacks = []
+var canAttack = true
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
@@ -95,9 +97,11 @@ func refreshAttack(attackNode):
 
 func attack(attackNode):
 	#Uses the given Attack Node to generate the proper attack in the projectile spawner
-	if attackNode == null:
+	if attackNode == null or canAttack == false:
 		return
 	#Use the given attack and remove it from the list of available attacks
+	canAttack = false
+	recovery.start()
 	projectileSpawner.fire(
 		self,
 		attackNode,
@@ -142,3 +146,6 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 			closestDistanceSquared = distanceSquared
 
 	return closestCanvasItem
+
+func _on_Recovery_timeout():
+	canAttack = true

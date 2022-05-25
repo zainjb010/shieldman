@@ -22,6 +22,9 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource( 2 )
 
+[node name="Recovery" type="Timer" parent="."]
+one_shot = true
+
 [node name="Attacks" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="."]
@@ -65,6 +68,7 @@ margin_top = -48.0
 margin_right = 64.0
 margin_bottom = -8.0
 
+[connection signal="timeout" from="Recovery" to="." method="_on_Recovery_timeout"]
 [connection signal="body_entered" from="Ranges/Range" to="Ranges" method="_on_Range_body_entered"]
 [connection signal="body_entered" from="Ranges/Range" to="Ranges/Range" method="_on_Range_body_entered"]
 [connection signal="body_exited" from="Ranges/Range" to="Ranges" method="_on_Range_body_exited"]

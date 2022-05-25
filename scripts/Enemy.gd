@@ -1,6 +1,5 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
-#var aggroTarget = null
 var aggroValue = 0
 var aggroTable = []
 
