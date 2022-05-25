@@ -11,6 +11,9 @@ func _ready():
 func fire(source: Node, attack: Node, direction: Vector2):
 	#Using an attack's parameters, generates the proper projectile and gives it parameters
 	var projectile
+	if attack.type == "instant":
+		owner.currentTarget.takeDamage(source, global_position, attack.damage, attack.type)
+		return
 	if attack.type == "missile":
 		projectile = bulletObject.instance()
 		projectile.source = source

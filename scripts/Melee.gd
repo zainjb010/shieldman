@@ -1,5 +1,7 @@
 extends Area2D
 
+#I'm not completely sure of this implementation; I may scrap it or heavily rework it
+
 var direction = Vector2(0, 0)
 var distance = 0
 var angle = 0
@@ -42,7 +44,7 @@ func _ready():
 func _physics_process(delta):
 	#Rotate the object around the entity
 	for item in targets:
-		item.takeDamage(source, damage, damageType)
+		item.takeDamage(source, direction, damage, damageType)
 		targets.erase(item)
 	get_parent().rotate(deg2rad(speed * delta))
 	#print(rad2deg(get_parent().get_rotation()), " ", rad2deg(angle), " ", rad2deg(get_parent().get_rotation()) - rad2deg(angle))

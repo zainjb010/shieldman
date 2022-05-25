@@ -21,7 +21,7 @@ func _ready():
 func _physics_process(delta):
 	global_position = source.global_position
 	for item in targets:
-		item.takeDamage(source, damage, damageType)
+		item.takeDamage(source, global_position, damage, damageType)
 		targets.erase(item)
 	pass
 		

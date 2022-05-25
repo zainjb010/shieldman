@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Taunt"
-type = "zone"
-damage = 10
-damageType = "aggro"
+name = "Hit"
+type = "instant"
+damage = 1
+damageType = "physical"
 speed = 0.0
-missileCount = 1
-cooldown = 3.0
-hitboxRadius = 150.0
+missileCount = 0
+cooldown = 1.0
+hitboxRadius = 0.0
 firingArc = 0.0
-duration = 1.0
+duration = 0.0

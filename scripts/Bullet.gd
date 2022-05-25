@@ -24,7 +24,7 @@ func _physics_process(delta):
 	if collision:
 		var type = collision.collider.get_meta("type")
 		#if type == "baddie":
-		collision.collider.takeDamage(source, damage, damageType)
+		collision.collider.takeDamage(source, bulletDirection, damage, damageType)
 		queue_free()
 		
 func _on_Timer_timeout():

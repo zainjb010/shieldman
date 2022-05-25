@@ -12,6 +12,7 @@ func _ready():
 	speed = 500
 	entityCollision.shape.radius = 32
 	availableAttacks.append($Attacks/Taunt)
+	ui.healthBar.updateBar(100 * (currentHealth / health))
 
 func getInputDirection():
 	var inputvector = Vector2 (

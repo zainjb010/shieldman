@@ -11,6 +11,7 @@ onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
 onready var ranges = $Ranges
+onready var ui = $UI
 
 var moveTarget = null
 var currentTarget = null
@@ -38,6 +39,7 @@ func initialize():
 		sprite.texture = stats.sprite
 		health = stats.health
 		currentHealth = stats.health
+		ui.healthBar.updateBar(100 * (currentHealth / health))
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
 		ranges.attackRangeCollision.shape.radius = stats.attackRadius
@@ -107,13 +109,14 @@ func attack(attackNode):
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(source: Node, amount: int, type: String) -> int:
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
 	#Returns the actual amount of damage taken
-	if type == "none":
+	if type == "aggro":
 		amount = 0
 	currentHealth = currentHealth - amount
+	ui.healthBar.updateBar(100 * (float(currentHealth) / float(health)))
 	if currentHealth <= 0:
 		die()
 	#Update health bar here
