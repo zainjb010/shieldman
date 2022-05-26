@@ -4,12 +4,12 @@ extends "res://scripts/ScriptTemplates/EntityRanges.gd"
 func _on_Range_body_entered(body):
 	var type = body.get_meta("type")
 	if type == "baddie":
-		nearbyEntities.append(body)
+		nearbyTargets.append(body)
 
 func _on_Range_body_exited(body):
 	var type = body.get_meta("type")
 	if type == "baddie":
-		nearbyEntities.erase(body)
+		nearbyTargets.erase(body)
 
 #Detection Range collision handling
 func _on_Detection_body_entered(body):

@@ -5,14 +5,14 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Magic Bolt"
-type = "missile"
+name = "Slash"
+type = "melee"
 sprite = ExtResource( 2 )
 damage = 1
-damageType = "magic"
-speed = 9.0
+damageType = "physical"
+speed = 150.0
 missileCount = 1
 cooldown = 2.0
-hitboxRadius = 10.0
-firingArc = 0.0
-duration = 5.0
+hitboxRadius = 5.0
+firingArc = 45.0
+duration = 3.0

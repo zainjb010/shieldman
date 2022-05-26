@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/Attacks/Attack.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Hit"
+type = "instant"
+damage = 1
+damageType = "physical"
+speed = 0.0
+missileCount = 0
+cooldown = 1.0
+hitboxRadius = 0.0
+firingArc = 0.0
+duration = 0.0

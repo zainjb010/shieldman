@@ -7,9 +7,11 @@ onready var hitbox = $CollisionShape2D
 onready var sprite = $Sprite
 onready var durationTimer = $Timer
 
+export(NodePath) var source = null
 export var damage = 0
 export var damageType = "magic"
 export var speed = 9
+export var firingArc = 0
 export var duration = 0
 
 func _ready():
@@ -21,9 +23,9 @@ func _physics_process(delta):
 	var collision = move_and_collide(speed * bulletDirection,false)
 	if collision:
 		var type = collision.collider.get_meta("type")
-		if type == "baddie":
-			collision.collider.takeDamage(damage, damageType)
-			queue_free()
+		#if type == "baddie":
+		collision.collider.takeDamage(source, bulletDirection, damage, damageType)
+		queue_free()
 		
 func _on_Timer_timeout():
 	queue_free()

@@ -6,22 +6,27 @@ var attackObject = preload("res://objects/ObjectTemplates/Attack.tscn")
 
 onready var globalData = get_tree().get_root().get_node("GlobalNode")
 
+onready var recovery = $Recovery
 onready var sprite = $Sprite
 onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
 onready var ranges = $Ranges
+onready var ui = $UI
 
+var moveTarget = null
 var currentTarget = null
 var moveDirection = Vector2(0, 0)
 var attackDirection = Vector2(0, 0)
 var previousPosition = Vector2(0, 0)
 var availableAttacks = []
+var canAttack = true
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
 
 export var health = 0
+var currentHealth = 0
 export var speed = 500
 
 # Called when the node enters the scene tree for the first time.
@@ -35,6 +40,8 @@ func initialize():
 		set_meta("type", stats.type)
 		sprite.texture = stats.sprite
 		health = stats.health
+		currentHealth = stats.health
+		ui.healthBar.updateBar(100 * (currentHealth / health))
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
 		ranges.attackRangeCollision.shape.radius = stats.attackRadius
@@ -54,11 +61,13 @@ func addAttack(attackName):
 		var newAttack = attackObject.instance()
 		newAttack.sprite = attack.sprite
 		newAttack.type = attack.type
+		newAttack.damage = attack.damage
 		newAttack.attackName = attack.name
 		newAttack.speed = attack.speed
 		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
+		newAttack.firingArc = attack.firingArc
 		newAttack.duration = attack.duration
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)
@@ -67,7 +76,7 @@ func addAttack(attackName):
 
 func move(direction):
 	previousPosition = global_position
-	move_and_slide(speed * moveDirection)
+	move_and_slide(speed * direction)
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
@@ -88,28 +97,37 @@ func refreshAttack(attackNode):
 
 func attack(attackNode):
 	#Uses the given Attack Node to generate the proper attack in the projectile spawner
-	if attackNode == null:
+	if attackNode == null or canAttack == false:
 		return
 	#Use the given attack and remove it from the list of available attacks
-	if attackNode.type == "missile":
-		projectileSpawner.fire(
-			attackNode.sprite, 
-			attackNode.hitboxRadius, 
-			attackDirection, 
-			attackNode.duration,
-			get_meta("type")
-			)
+	canAttack = false
+	recovery.start()
+	projectileSpawner.fire(
+		self,
+		attackNode,
+		attackDirection
+	)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
 	attackNode.timer.start()
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(amount: int, type: String) -> int:
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
+	#Returns the actual amount of damage taken
+	if type == "aggro":
+		amount = 0
+	currentHealth = currentHealth - amount
+	ui.healthBar.updateBar(100 * (float(currentHealth) / float(health)))
+	if currentHealth <= 0:
+		die()
+	#Update health bar here
+	return amount
+
+func die():
 	queue_free()
-	return 0
 
 #Handles finding closest enemies to the entity
 func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -> CanvasItem:
@@ -128,3 +146,6 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 			closestDistanceSquared = distanceSquared
 
 	return closestCanvasItem
+
+func _on_Recovery_timeout():
+	canAttack = true
