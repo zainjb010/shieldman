@@ -9,7 +9,7 @@
 [node name="blankscene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 516.384, 262.246 )
+position = Vector2( 705.888, 532.361 )
 collision_mask = 1
 
 [node name="PartyMember" parent="." instance=ExtResource( 3 )]

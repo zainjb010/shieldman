@@ -1,11 +1,13 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
 #signal positionChanged(position)
+onready var partyFormation = $PartyFormation
 
 #Overloaded ready function that sets entity variables
 func _ready():
 	set_meta("type", "player")
 	#connect("positionChanged", globalData, "updatePosition")
+	globalData.connect("newPartyMember", partyFormation, "newPartyMember")
 	#Set other entity variables here
 	health = 20
 	currentHealth = 20

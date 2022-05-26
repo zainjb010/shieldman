@@ -1,8 +1,20 @@
 extends "res://scripts/ScriptTemplates/Entity.gd"
 
+signal partyMemberCreated(node)
+var partyFormationPosition = Vector2(0, 0)
+
+func _ready():
+	#Send a reference to self to global data for bookkeeping purposes
+	connect("partyMemberCreated", globalData, "partyMemberCreated")
+	emit_signal("partyMemberCreated", self)
+	pass
+
+func setFormationPosition(position: Vector2):
+	partyFormationPosition = position
+
 func selectMoveTarget():
 	if ranges.nearbyEntities.empty():
-		return null
+		return partyFormationPosition
 	ranges.closestEntity = findClosestCanvasItemInArray(global_position, ranges.nearbyEntities)
 	if ranges.closestEntity != null:
 		moveTarget = ranges.closestEntity
