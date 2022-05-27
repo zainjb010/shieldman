@@ -2,6 +2,7 @@ extends "res://scripts/ScriptTemplates/Entity.gd"
 
 #signal positionChanged(position)
 onready var partyFormation = $PartyFormation
+onready var shield = $Shield
 
 #Overloaded ready function that sets entity variables
 func _ready():
@@ -29,6 +30,16 @@ func _input(event):
 		attack($Attacks/Taunt)
 	pass
 
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String) -> int:
+	#Check if shield is blocking in the proper direction
+	var shieldDirection = Vector2(1, 0).rotated(shield.rotation)
+	var blocked = global_position.direction_to(source.global_position)
+	if blocked.dot(shieldDirection) > 0:
+		#The damage is blocked
+		return 0
+	return .takeDamage(source, direction, amount, type)
+	
+	
 #func _physics_process(delta):
 	#if global_position != previousPosition:
 			#emit_signal("positionChanged", global_position)
