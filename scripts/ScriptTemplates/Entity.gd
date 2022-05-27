@@ -14,6 +14,7 @@ onready var projectileSpawner = $ProjectileSpawner
 onready var ranges = $Ranges
 onready var ui = $UI
 
+var lookDirection = "down"
 var moveTarget = null
 var currentTarget = null
 var moveDirection = Vector2(0, 0)

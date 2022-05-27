@@ -48,3 +48,14 @@ func changeState(stateName):
 	
 	if stateName != "previous":
 		currentState.enter()
+
+func updateLookDirection(direction):
+	#direction = direction.normalized()
+	if direction.y > 0:
+		return "down"
+	if direction.y < 0:
+		return "up"
+	if direction.x > 0:
+		return "right"
+	if direction.x < 0:
+		return "left"

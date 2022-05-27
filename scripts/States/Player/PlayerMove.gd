@@ -12,3 +12,8 @@ func update(delta):
 func move(speed, direction, delta):
 	var velocity = direction.normalized() * speed
 	owner.move_and_slide(velocity)
+	var newLookDirection = get_parent().updateLookDirection(velocity)
+	if newLookDirection:
+		if newLookDirection != owner.lookDirection:
+			owner.lookDirection = newLookDirection
+			owner.partyFormation.playerChangeFacing(newLookDirection)
