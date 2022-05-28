@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/Actors/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/Actors/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/Actors/PartyMember.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/PartyMembers/Mage.tres" type="Resource" id=4]
 [ext_resource path="res://resources/Enemies/BasicEnemy.tres" type="Resource" id=5]
+[ext_resource path="res://scripts/EnemySpawner.gd" type="Script" id=6]
 
-[node name="blankscene" type="Node2D"]
+[node name="BlankScene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 705.888, 532.361 )
@@ -19,3 +20,11 @@ stats = ExtResource( 4 )
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
 position = Vector2( 86.4222, 105.728 )
 stats = ExtResource( 5 )
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+wait_time = 10.0
+
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

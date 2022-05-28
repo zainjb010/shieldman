@@ -31,6 +31,7 @@ script = ExtResource( 8 )
 
 [node name="Taunt" parent="Attacks" index="0" instance=ExtResource( 6 )]
 data = ExtResource( 7 )
+cooldown = 3
 
 [node name="StateMachine" parent="." index="4"]
 script = ExtResource( 5 )
