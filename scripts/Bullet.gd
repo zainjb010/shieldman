@@ -13,8 +13,12 @@ export var damageType = "magic"
 export var speed = 9
 export var firingArc = 0
 export var duration = 0
+export (Array, String) var additionalEffects
+
+var spriteTexture
 
 func _ready():
+	sprite.texture = spriteTexture
 	set_meta("type", "bullet")
 	durationTimer.wait_time = duration
 	durationTimer.start()
@@ -24,7 +28,7 @@ func _physics_process(delta):
 	if collision:
 		var type = collision.collider.get_meta("type")
 		#if type == "baddie":
-		collision.collider.takeDamage(source, bulletDirection, damage, damageType)
+		collision.collider.takeDamage(source, bulletDirection, damage, damageType, additionalEffects)
 		queue_free()
 		
 func _on_Timer_timeout():

@@ -37,9 +37,9 @@ func selectTarget():
 	if is_instance_valid(currentTarget):
 		return currentTarget
 
-func takeDamage(source: Node, direction: Vector2, amount: int, type: String) -> int:
+func takeDamage(source: Node, direction: Vector2, amount: int, type: String, additionalEffects: Array) -> int:
 	#Add the source of the damage to an aggro table
-	var damage = .takeDamage(source, direction, amount, type)
+	var damage = .takeDamage(source, direction, amount, type, additionalEffects)
 	if type == "aggro":
 		damage = amount
 	for item in aggroTable:

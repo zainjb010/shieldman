@@ -13,7 +13,9 @@ export var cooldown = 0
 export var hitboxRadius = 0
 export var firingArc = 0
 export var duration = 0
+export var size = Vector2(0, 0)
 export var sprite : Texture
+export (Array, String) var additionalEffects
 
 onready var timer = $Timer
 
@@ -30,6 +32,8 @@ func _ready():
 		cooldown = data.cooldown
 		hitboxRadius = data.hitboxRadius
 		duration = data.duration
+		size = data.size
+		additionalEffects = data.additionalEffects
 		sprite = data.sprite
 	timer.wait_time = cooldown
 

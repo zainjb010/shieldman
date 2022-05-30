@@ -11,6 +11,7 @@ onready var sprite = $Sprite
 onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
+onready var stateMachine = $StateMachine
 onready var ranges = $Ranges
 onready var ui = $UI
 
@@ -22,6 +23,7 @@ var attackDirection = Vector2(0, 0)
 var previousPosition = Vector2(0, 0)
 var availableAttacks = []
 var canAttack = true
+var isStunned = false
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
@@ -75,9 +77,9 @@ func addAttack(attackName):
 		#Append the new attack to the list of available attacks; this may become optional
 		availableAttacks.append(newAttack)
 
-func move(direction):
+func move(direction, scale = 1):
 	previousPosition = global_position
-	move_and_slide(speed * direction)
+	return move_and_slide(speed * direction * scale)
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
@@ -114,7 +116,7 @@ func attack(attackNode):
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(source: Node, direction : Vector2, amount: int, type: String) -> int:
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects : Array) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
 	#Returns the actual amount of damage taken
@@ -124,6 +126,10 @@ func takeDamage(source: Node, direction : Vector2, amount: int, type: String) ->
 	ui.healthBar.updateBar(100 * (float(currentHealth) / float(health)))
 	if currentHealth <= 0:
 		die()
+	for item in additionalEffects:
+		if item == "push":
+			moveDirection = direction.normalized()
+			stateMachine.changeState("knockback")
 	#Update health bar here
 	return amount
 

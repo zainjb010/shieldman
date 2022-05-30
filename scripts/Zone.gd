@@ -9,10 +9,13 @@ export var damage = 0
 export var damageType = ""
 export var duration = 0
 export var hitboxRadius = 0
+export (Array, String) var additionalEffects
 
 var targets = []
+var spriteTexture
 
 func _ready():
+	sprite.texture = spriteTexture
 	set_meta("type", "zone")
 	hitbox.shape.radius = hitboxRadius
 	durationTimer.wait_time = duration
@@ -21,7 +24,7 @@ func _ready():
 func _physics_process(delta):
 	global_position = source.global_position
 	for item in targets:
-		item.takeDamage(source, global_position, damage, damageType)
+		item.takeDamage(source, global_position, damage, damageType, additionalEffects)
 		targets.erase(item)
 	pass
 		

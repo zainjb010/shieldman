@@ -17,3 +17,6 @@ export var cooldown : float
 export var hitboxRadius : float
 export var firingArc : float
 export var duration : float
+export var size : Vector2
+
+export (Array, String) var additionalEffects

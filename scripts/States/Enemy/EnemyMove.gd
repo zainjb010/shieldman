@@ -23,3 +23,4 @@ func move(speed, direction):
 		speed
 	)
 	moveDirection = owner.move_and_slide(moveDirection)
+	return moveDirection

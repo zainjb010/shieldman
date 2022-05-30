@@ -14,3 +14,5 @@ cooldown = 1.0
 hitboxRadius = 0.0
 firingArc = 0.0
 duration = 0.0
+size = Vector2( 0, 0 )
+additionalEffects = [  ]

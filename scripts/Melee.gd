@@ -18,10 +18,13 @@ export var speed = 0
 export var firingArc = 0
 export var duration = 0
 export var hitboxRadius = 0
+export (Array, String) var additionalEffects
 
 var targets = []
+var spriteTexture
 
 func _ready():
+	sprite.texture = spriteTexture
 	set_meta("type", "melee")
 	hitbox.shape.radius = hitboxRadius
 	angle = source.position.angle_to(direction)
@@ -44,7 +47,7 @@ func _ready():
 func _physics_process(delta):
 	#Rotate the object around the entity
 	for item in targets:
-		item.takeDamage(source, direction, damage, damageType)
+		item.takeDamage(source, direction, damage, damageType, additionalEffects)
 		targets.erase(item)
 	get_parent().rotate(deg2rad(speed * delta))
 	#print(rad2deg(get_parent().get_rotation()), " ", rad2deg(angle), " ", rad2deg(get_parent().get_rotation()) - rad2deg(angle))
