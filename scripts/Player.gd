@@ -14,6 +14,7 @@ func _ready():
 	currentHealth = 20
 	speed = 500
 	entityCollision.shape.radius = 32
+	recovery.wait_time = 0.1
 	availableAttacks.append($Attacks/Taunt)
 	$Attacks/Taunt.connect("attackReady", self, "refreshAttack")
 	availableAttacks.append($Attacks/Push)

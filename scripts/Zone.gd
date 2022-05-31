@@ -55,7 +55,7 @@ func _physics_process(delta):
 func _on_DurationTimer_timeout():
 	if castTime == 0:
 		for item in targets:
-			item.takeDamage(self, global_position, damage, damageType, additionalEffects)
+			item.takeDamage(source, global_position, damage, damageType, additionalEffects)
 	queue_free()
 
 func _on_CastTimer_timeout():
