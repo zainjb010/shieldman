@@ -24,6 +24,7 @@ var previousPosition = Vector2(0, 0)
 var availableAttacks = []
 var canAttack = true
 var isStunned = false
+var castTime = 0.0
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
@@ -63,17 +64,25 @@ func addAttack(attackName):
 		attack = load(attack)
 		var newAttack = attackObject.instance()
 		newAttack.attackName = attack.name
+		
 		newAttack.sprite = attack.sprite
+		newAttack.castSprite = attack.castSprite
+		
 		newAttack.type = attack.type
 		newAttack.damage = attack.damage
 		newAttack.damageType = attack.damageType
 		newAttack.speed = attack.speed
+		newAttack.tracking = attack.tracking
 		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
 		newAttack.firingArc = attack.firingArc
 		newAttack.duration = attack.duration
+		newAttack.castTime = attack.castTime
 		newAttack.size = attack.size
+		
+		newAttack.additionalEffects = attack.additionalEffects
+		
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)
 		#Append the new attack to the list of available attacks; this may become optional
@@ -85,6 +94,8 @@ func move(direction, scale = 1):
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
+	if canAttack == false:
+		return null
 	var selected = null
 	if availableAttacks.empty():
 		return null
@@ -97,11 +108,15 @@ func selectAttack():
 func refreshAttack(attackNode):
 	#Function for returning an attack to the available list
 	#Accepts an Attack Node
+	if get_meta("type") == "party":
+		print("refreshing ", attackNode.attackName)
 	availableAttacks.append(attackNode)
 	pass
 
 func attack(attackNode):
 	#Uses the given Attack Node to generate the proper attack in the projectile spawner
+	if get_meta("type") == "party":
+		print(canAttack)
 	if attackNode == null or canAttack == false:
 		return
 	#Use the given attack and remove it from the list of available attacks
@@ -114,7 +129,9 @@ func attack(attackNode):
 	)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
-	attackNode.timer.start()
+	if get_meta("type") == "party":
+		print("starting cast timer for ", attackNode.attackName)
+	attackNode.castTimer.start()
 	availableAttacks.erase(attackNode)
 	pass
 

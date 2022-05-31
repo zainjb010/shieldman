@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://objects/ObjectTemplates/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/PartyMember.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scripts/States/Party/PartyIdle.gd" type="Script" id=5]
 [ext_resource path="res://scripts/States/Party/PartyAttack.gd" type="Script" id=6]
 [ext_resource path="res://scripts/States/Party/PartyMove.gd" type="Script" id=7]
+[ext_resource path="res://scripts/States/Party/PartyCast.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -35,6 +36,11 @@ script = ExtResource( 7 )
 [node name="Attack" type="Node" parent="StateMachine" index="2"]
 script = ExtResource( 6 )
 
+[node name="Cast" type="Node" parent="StateMachine" index="3"]
+script = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="StateMachine/Cast" index="0"]
+
 [node name="EntityCollision" parent="." index="3"]
 shape = SubResource( 1 )
 
@@ -49,3 +55,5 @@ shape = SubResource( 2 )
 
 [node name="Collision" parent="Ranges/Detection" index="0"]
 shape = SubResource( 3 )
+
+[connection signal="timeout" from="StateMachine/Cast/Timer" to="StateMachine/Cast" method="_on_Timer_timeout"]

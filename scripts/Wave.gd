@@ -2,7 +2,8 @@ extends Area2D
 
 onready var hitbox = $CollisionShape2D
 onready var sprite = $Sprite
-onready var durationTimer = $Timer
+onready var durationTimer = $DurationTimer
+onready var castTimer = $CastTimer
 onready var left = $Left
 onready var leftMiddle = $LeftMiddle
 onready var rightMiddle = $RightMiddle
@@ -12,14 +13,18 @@ export var attackName : String
 export(NodePath) var source = null
 export var damage = 0
 export var damageType = ""
-export var duration = 0
+export var duration = 0.0
+export var castTime = 0.0
 export var speed = 0.0
+export var tracking = false
 export var missileCount = 0
 export var firingArc = 0.0
 export var hitboxRadius = 0.0
 export (Array, String) var additionalEffects
 
-var spriteTexture
+export var spriteTexture : Texture
+export var castTexture : Texture
+
 var size: = Vector2(0, 0)
 var direction: = Vector2(0, 0)
 
@@ -31,13 +36,23 @@ func _ready():
 	right.position.y = size.y
 	rotation = get_angle_to(direction)
 	#position.x = size.x
-	sprite.texture = spriteTexture
+	sprite.texture = castTexture
 	set_meta("type", "wave")
 	durationTimer.wait_time = duration
-	durationTimer.start()
+	castTimer.wait_time = castTime
+	if castTime > 0:
+		hitbox.disabled = true
+		castTimer.start()
+	else:
+		durationTimer.start()
 		
 func _on_Timer_timeout():
 	queue_free()
+
+func _on_CastTimer_timeout():
+	hitbox.disabled = false
+	sprite.texture = spriteTexture
+	durationTimer.start()
 
 func _on_Shockwave_body_entered(body):
 	var distance = global_position.distance_squared_to(body.global_position)

@@ -15,8 +15,12 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="DurationTimer" type="Timer" parent="."]
+
+[node name="CastTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_Zone_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Zone_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]

@@ -7,6 +7,8 @@ func _ready():
 	#Send a reference to self to global data for bookkeeping purposes
 	connect("partyMemberCreated", globalData, "partyMemberCreated")
 	emit_signal("partyMemberCreated", self)
+	for item in attacks.get_children():
+		item.castTimer.connect("timeout", stateMachine.get_node("Cast"), "_on_Timer_timeout")
 	pass
 
 func setFormationPosition(position: Vector2):

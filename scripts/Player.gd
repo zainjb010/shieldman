@@ -30,6 +30,7 @@ func getInputDirection():
 
 func _input(event):
 	if event.is_action_pressed("ui_select") and availableAttacks.has($Attacks/Taunt):
+		currentTarget = self
 		attack($Attacks/Taunt)
 	if event.is_action_pressed("ui_right_click") and availableAttacks.has($Attacks/Push):
 		attackDirection = get_global_mouse_position()

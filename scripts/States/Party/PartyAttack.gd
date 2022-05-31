@@ -10,4 +10,9 @@ func update(delta):
 	if is_instance_valid(currentTarget):
 		var firingDirection = owner.global_position.direction_to(currentTarget.global_position)
 		owner.attackDirection = firingDirection
-	owner.attack(owner.selectAttack())
+	var attack = owner.selectAttack()
+	if attack:
+		owner.castTime = attack.castTime
+		owner.attack(attack)
+		print("attacking with ", attack.attackName)
+		emit_signal("finished", "cast")
