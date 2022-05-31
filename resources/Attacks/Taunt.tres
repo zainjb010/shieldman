@@ -1,16 +1,22 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/Attacks/Attack.gd" type="Script" id=1]
+[ext_resource path="res://sprites/HealthBarUnder.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
 name = "Taunt"
 type = "zone"
+castSprite = ExtResource( 2 )
 damage = 10
 damageType = "aggro"
 speed = 0.0
+tracking = true
 missileCount = 1
 cooldown = 3.0
 hitboxRadius = 150.0
 firingArc = 0.0
-duration = 1.0
+duration = 0.25
+castTime = 0.0
+size = Vector2( 0, 0 )
+additionalEffects = [  ]

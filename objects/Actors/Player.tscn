@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://objects/ObjectTemplates/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://scripts/States/Player/PlayerStateMachine.gd" type="Script" id=5]
 [ext_resource path="res://objects/ObjectTemplates/Attack.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/Attacks/Taunt.tres" type="Resource" id=7]
+[ext_resource path="res://scripts/PartyFormation.gd" type="Script" id=8]
+[ext_resource path="res://objects/Shield.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resources/Attacks/Push.tres" type="Resource" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -22,10 +25,19 @@ collision_layer = 1
 collision_mask = 32
 script = ExtResource( 2 )
 
+[node name="Shield" parent="." index="0" instance=ExtResource( 9 )]
+
+[node name="PartyFormation" type="Node2D" parent="." index="2"]
+script = ExtResource( 8 )
+
 [node name="Taunt" parent="Attacks" index="0" instance=ExtResource( 6 )]
 data = ExtResource( 7 )
+cooldown = 3
 
-[node name="StateMachine" parent="." index="1"]
+[node name="Push" parent="Attacks" index="1" instance=ExtResource( 6 )]
+data = ExtResource( 10 )
+
+[node name="StateMachine" parent="." index="4"]
 script = ExtResource( 5 )
 START_STATE = NodePath("Idle")
 
@@ -35,7 +47,7 @@ script = ExtResource( 4 )
 [node name="Move" type="Node" parent="StateMachine" index="1"]
 script = ExtResource( 3 )
 
-[node name="EntityCollision" parent="." index="2"]
+[node name="EntityCollision" parent="." index="5"]
 shape = SubResource( 1 )
 
 [node name="Collision" parent="Ranges/Range" index="0"]

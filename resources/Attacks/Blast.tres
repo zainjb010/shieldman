@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://resources/Attacks/Attack.gd" type="Script" id=1]
+[ext_resource path="res://sprites/ManaBarProgress.png" type="Texture" id=2]
+[ext_resource path="res://sprites/HealthBarProgress.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "Blast"
+type = "zone"
+sprite = ExtResource( 2 )
+castSprite = ExtResource( 3 )
+damage = 3
+damageType = "magic"
+speed = 100.0
+tracking = true
+missileCount = 1
+cooldown = 5.0
+hitboxRadius = 150.0
+firingArc = 0.0
+duration = 0.5
+castTime = 2.0
+size = Vector2( 0, 0 )
+additionalEffects = [  ]

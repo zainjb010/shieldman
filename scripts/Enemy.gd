@@ -4,6 +4,8 @@ var aggroValue = 0
 var aggroTable = []
 
 func selectMoveTarget():
+	#If there are items in the aggro table, it moves toward the one with the highest value
+	#Otherwise, it moves toward the closest target
 	if !aggroTable.empty():
 		moveTarget = selectTarget()
 		return moveTarget
@@ -37,9 +39,10 @@ func selectTarget():
 	if is_instance_valid(currentTarget):
 		return currentTarget
 
-func takeDamage(source: Node, direction: Vector2, amount: int, type: String) -> int:
+func takeDamage(source: Node, direction: Vector2, amount: int, type: String, additionalEffects: Array) -> int:
 	#Add the source of the damage to an aggro table
-	var damage = .takeDamage(source, direction, amount, type)
+	#If the type is "aggro," no hp damage is taken, but it inflates the aggro value on the table
+	var damage = .takeDamage(source, direction, amount, type, additionalEffects)
 	if type == "aggro":
 		damage = amount
 	for item in aggroTable:

@@ -8,6 +8,8 @@ script = ExtResource( 1 )
 
 [node name="InputManager" type="Node" parent="."]
 
+[node name="ProjectileManager" type="Node" parent="."]
+
 [node name="CurrentScene" type="Node" parent="."]
 
 [node name="BlankScene" parent="CurrentScene" instance=ExtResource( 2 )]

@@ -5,6 +5,7 @@ func _ready():
 		"idle": $Idle,
 		"move": $Move,
 		"attack": $Attack,
+		"cast": $Cast
 	}
 
 func changeState(stateName):

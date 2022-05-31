@@ -11,9 +11,11 @@ onready var sprite = $Sprite
 onready var attacks = $Attacks
 onready var entityCollision = $EntityCollision
 onready var projectileSpawner = $ProjectileSpawner
+onready var stateMachine = $StateMachine
 onready var ranges = $Ranges
 onready var ui = $UI
 
+var lookDirection = "down"
 var moveTarget = null
 var currentTarget = null
 var moveDirection = Vector2(0, 0)
@@ -21,6 +23,8 @@ var attackDirection = Vector2(0, 0)
 var previousPosition = Vector2(0, 0)
 var availableAttacks = []
 var canAttack = true
+var isStunned = false
+var castTime = 0.0
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
@@ -59,27 +63,39 @@ func addAttack(attackName):
 		#Instantiate an attack object for the attack
 		attack = load(attack)
 		var newAttack = attackObject.instance()
+		newAttack.attackName = attack.name
+		
 		newAttack.sprite = attack.sprite
+		newAttack.castSprite = attack.castSprite
+		
 		newAttack.type = attack.type
 		newAttack.damage = attack.damage
-		newAttack.attackName = attack.name
+		newAttack.damageType = attack.damageType
 		newAttack.speed = attack.speed
+		newAttack.tracking = attack.tracking
 		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
 		newAttack.firingArc = attack.firingArc
 		newAttack.duration = attack.duration
+		newAttack.castTime = attack.castTime
+		newAttack.size = attack.size
+		
+		newAttack.additionalEffects = attack.additionalEffects
+		
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)
 		#Append the new attack to the list of available attacks; this may become optional
 		availableAttacks.append(newAttack)
 
-func move(direction):
+func move(direction, scale = 1):
 	previousPosition = global_position
-	move_and_slide(speed * direction)
+	return move_and_slide(speed * direction * scale)
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
+	if canAttack == false:
+		return null
 	var selected = null
 	if availableAttacks.empty():
 		return null
@@ -109,11 +125,11 @@ func attack(attackNode):
 	)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
-	attackNode.timer.start()
+	attackNode.castTimer.start()
 	availableAttacks.erase(attackNode)
 	pass
 
-func takeDamage(source: Node, direction : Vector2, amount: int, type: String) -> int:
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects : Array) -> int:
 	#Placeholder function
 	#Takes the amount of damage, and the type of damage (for typed reduction/armor)
 	#Returns the actual amount of damage taken
@@ -123,6 +139,10 @@ func takeDamage(source: Node, direction : Vector2, amount: int, type: String) ->
 	ui.healthBar.updateBar(100 * (float(currentHealth) / float(health)))
 	if currentHealth <= 0:
 		die()
+	for item in additionalEffects:
+		if item == "push":
+			moveDirection = direction.normalized()
+			stateMachine.changeState("knockback")
 	#Update health bar here
 	return amount
 
@@ -147,5 +167,6 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 
 	return closestCanvasItem
 
+#The recovery timer functions as a global cooldown
 func _on_Recovery_timeout():
 	canAttack = true
