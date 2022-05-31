@@ -11,13 +11,16 @@ onready var hitbox = $CollisionShape2D
 onready var sprite = $Sprite
 onready var durationTimer = $Timer
 
+export var attackName : String
 export(NodePath) var source = null
 export var damage = 0
 export var damageType = ""
-export var speed = 0
+export var speed = 0.0
 export var firingArc = 0
 export var duration = 0
+export var missileCount = 0
 export var hitboxRadius = 0
+export var size = 0
 export (Array, String) var additionalEffects
 
 var targets = []

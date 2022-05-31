@@ -62,16 +62,18 @@ func addAttack(attackName):
 		#Instantiate an attack object for the attack
 		attack = load(attack)
 		var newAttack = attackObject.instance()
+		newAttack.attackName = attack.name
 		newAttack.sprite = attack.sprite
 		newAttack.type = attack.type
 		newAttack.damage = attack.damage
-		newAttack.attackName = attack.name
+		newAttack.damageType = attack.damageType
 		newAttack.speed = attack.speed
 		newAttack.missileCount = attack.missileCount
 		newAttack.cooldown = attack.cooldown
 		newAttack.hitboxRadius = attack.hitboxRadius
 		newAttack.firingArc = attack.firingArc
 		newAttack.duration = attack.duration
+		newAttack.size = attack.size
 		newAttack.connect("attackReady", self, "refreshAttack")
 		attacks.add_child(newAttack)
 		#Append the new attack to the list of available attacks; this may become optional

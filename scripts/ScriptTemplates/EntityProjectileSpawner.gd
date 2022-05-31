@@ -1,9 +1,10 @@
 extends Node2D
 
 var bulletObject = preload("res://objects/ObjectTemplates/Bullet.tscn")
-var zoneObject = preload("res://objects/ObjectTemplates/Zone.tscn")
+var auraObject = preload("res://objects/ObjectTemplates/Aura.tscn")
 var meleeObject = preload("res://objects/ObjectTemplates/Melee.tscn")
 var waveObject = preload("res://objects/ObjectTemplates/Wave.tscn")
+var zoneObject = preload("res://objects/ObjectTemplates/Zone.tscn")
 
 func _ready():
 	pass
@@ -15,45 +16,31 @@ func fire(source: Node, attack: Node, direction: Vector2):
 	if attack.type == "instant":
 		owner.currentTarget.takeDamage(source, global_position, attack.damage, attack.type)
 		return
+		
 	if attack.type == "missile":
 		projectile = bulletObject.instance()
-		projectile.source = source
 		projectile.bulletDirection = direction
-		projectile.spriteTexture = attack.sprite
-		projectile.speed = attack.speed
-		projectile.duration = attack.duration
-		projectile.firingArc = attack.firingArc
-		projectile.damage = attack.damage
-		projectile.damageType = attack.damageType
-	if attack.type == "zone":
-		projectile = zoneObject.instance()
-		projectile.source = source
-		projectile.spriteTexture = attack.sprite
-		projectile.duration = attack.duration
-		projectile.damage = attack.damage
-		projectile.damageType = attack.damageType
-		projectile.hitboxRadius = attack.hitboxRadius
+	if attack.type == "aura":
+		projectile = auraObject.instance()
 	if attack.type == "melee":
 		projectile = meleeObject.instance()
-		projectile.source = source
-		projectile.direction = direction
-		projectile.spriteTexture = attack.sprite
-		projectile.speed = attack.speed
-		projectile.duration = attack.duration
-		projectile.firingArc = attack.firingArc
-		projectile.damage = attack.damage
-		projectile.damageType = attack.damageType
-		projectile.hitboxRadius = attack.hitboxRadius
 	if attack.type == "wave":
 		projectile = waveObject.instance()
-		projectile.source = source
-		projectile.damage = attack.damage
-		projectile.damageType = attack.damageType
-		projectile.direction = direction
-		projectile.size = attack.size
-		projectile.spriteTexture = attack.sprite
-		projectile.speed = attack.speed
-		projectile.duration = attack.duration
+	if attack.type == "zone":
+		projectile = zoneObject.instance()
+		projectile.target = owner.currentTarget.global_position
+		
+	projectile.source = source
+	projectile.attackName = attack.name
+	projectile.spriteTexture = attack.sprite
+	projectile.damage = attack.damage
+	projectile.damageType = attack.damageType
+	projectile.speed = attack.speed
+	projectile.missileCount = attack.missileCount
+	projectile.hitboxRadius = attack.hitboxRadius
+	projectile.firingArc = attack.firingArc
+	projectile.duration = attack.duration
+	projectile.size = attack.size
 		
 	projectile.additionalEffects = attack.additionalEffects
 		

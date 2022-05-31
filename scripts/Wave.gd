@@ -8,11 +8,15 @@ onready var leftMiddle = $LeftMiddle
 onready var rightMiddle = $RightMiddle
 onready var right = $Right
 
+export var attackName : String
 export(NodePath) var source = null
 export var damage = 0
 export var damageType = ""
 export var duration = 0
 export var speed = 0.0
+export var missileCount = 0
+export var firingArc = 0.0
+export var hitboxRadius = 0.0
 export (Array, String) var additionalEffects
 
 var spriteTexture
