@@ -16,6 +16,7 @@ static func follow(
 	var dampening = (newVelocity - velocity) / mass
 	return velocity + dampening
 
+#More smoothly follows a target
 static func followSmooth(
 	velocity: Vector2,
 	global_position: Vector2,

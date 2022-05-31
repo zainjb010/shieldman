@@ -24,6 +24,7 @@ func spawnEnemy():
 		var spawn = enemyObject.instance()
 		spawn.stats = load(enemyResource)
 		add_child(spawn)
+		#These positions aren't accurate for now
 		if rand == 0:
 			#Top of screen
 			position = (1024 / 2) - (120 * count) + (i * 120)

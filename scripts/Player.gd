@@ -40,7 +40,11 @@ func _input(event):
 func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects: Array) -> int:
 	#Check if shield is blocking in the proper direction
 	var shieldDirection = Vector2(1, 0).rotated(shield.rotation)
-	var blocked = global_position.direction_to(source.global_position)
+	var blocked
+	if is_instance_valid(source):
+		blocked = global_position.direction_to(source.global_position)
+	else:
+		blocked = global_position.direction_to(direction)
 	if blocked.dot(shieldDirection) > 0:
 		#The damage is blocked
 		return 0

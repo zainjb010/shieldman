@@ -108,15 +108,11 @@ func selectAttack():
 func refreshAttack(attackNode):
 	#Function for returning an attack to the available list
 	#Accepts an Attack Node
-	if get_meta("type") == "party":
-		print("refreshing ", attackNode.attackName)
 	availableAttacks.append(attackNode)
 	pass
 
 func attack(attackNode):
 	#Uses the given Attack Node to generate the proper attack in the projectile spawner
-	if get_meta("type") == "party":
-		print(canAttack)
 	if attackNode == null or canAttack == false:
 		return
 	#Use the given attack and remove it from the list of available attacks
@@ -129,8 +125,6 @@ func attack(attackNode):
 	)
 		
 	#Start the attack's cooldown timer and remove it from the list of available attacks
-	if get_meta("type") == "party":
-		print("starting cast timer for ", attackNode.attackName)
 	attackNode.castTimer.start()
 	availableAttacks.erase(attackNode)
 	pass
@@ -173,5 +167,6 @@ func findClosestCanvasItemInArray(globalPosition: Vector2, canvasItems: Array) -
 
 	return closestCanvasItem
 
+#The recovery timer functions as a global cooldown
 func _on_Recovery_timeout():
 	canAttack = true

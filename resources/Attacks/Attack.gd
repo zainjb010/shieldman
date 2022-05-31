@@ -4,7 +4,7 @@ extends Resource
 class_name Attack
 
 export var name : String = ""
-#Valid Types: missile, zone, wave, instant, aura
+#Valid Types: missile, zone, wave, instant
 export var type : String = ""
 
 export var sprite : Texture

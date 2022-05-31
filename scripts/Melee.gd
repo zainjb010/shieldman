@@ -27,6 +27,7 @@ var targets = []
 var spriteTexture
 
 func _ready():
+	global_position = source.global_position
 	sprite.texture = spriteTexture
 	set_meta("type", "melee")
 	hitbox.shape.radius = hitboxRadius

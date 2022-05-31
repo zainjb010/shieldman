@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://resources/Enemies/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://resources/Attacks/MagicBolt.tres" type="Resource" id=3]
+[ext_resource path="res://resources/Attacks/Blast.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -14,4 +15,4 @@ speed = 120.0
 collisionRadius = 32.0
 attackRadius = 60.0
 detectRadius = 500.0
-attacks = [ ExtResource( 3 ) ]
+attacks = [ ExtResource( 3 ), ExtResource( 4 ) ]

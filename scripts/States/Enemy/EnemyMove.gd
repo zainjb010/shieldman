@@ -11,9 +11,10 @@ func update(delta):
 	if !moveTarget:
 		emit_signal("finished", "idle")
 	if moveTarget:
-		var collision = move(owner.speed, moveTarget.global_position)
-		if !collision:
-			return
+		if is_instance_valid(moveTarget):
+			var collision = move(owner.speed, moveTarget.global_position)
+			if !collision:
+				return
 		
 func move(speed, direction):
 	var moveDirection = Follow.follow(

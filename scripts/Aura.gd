@@ -1,5 +1,7 @@
 extends Area2D
 
+#This is deprecated for now
+
 onready var hitbox = $CollisionShape2D
 onready var sprite = $Sprite
 onready var durationTimer = $Timer

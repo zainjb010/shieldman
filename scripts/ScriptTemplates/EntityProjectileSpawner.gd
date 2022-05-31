@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var projectileData = get_tree().get_root().get_node("GlobalNode/ProjectileManager")
+
 var bulletObject = preload("res://objects/ObjectTemplates/Bullet.tscn")
 #var auraObject = preload("res://objects/ObjectTemplates/Aura.tscn")
 var meleeObject = preload("res://objects/ObjectTemplates/Melee.tscn")
@@ -55,4 +57,5 @@ func fire(source: Node, attack: Node, direction: Vector2):
 	if source.get_meta("type") == "baddie":
 		projectile.set_collision_mask_bit(0, true)
 		projectile.set_collision_mask_bit(1, true)
-	add_child(projectile)
+	#The projectile is added as a child to a different node, so that the attacks move independently from their sources
+	projectileData.add_child(projectile)

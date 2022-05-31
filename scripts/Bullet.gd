@@ -26,6 +26,7 @@ export var spriteTexture : Texture
 export var castTexture : Texture
 
 func _ready():
+	global_position = source.global_position
 	sprite.texture = spriteTexture
 	set_meta("type", "bullet")
 	durationTimer.wait_time = duration
@@ -34,8 +35,6 @@ func _ready():
 func _physics_process(delta):
 	var collision = move_and_collide(speed * bulletDirection,false)
 	if collision:
-		var type = collision.collider.get_meta("type")
-		#if type == "baddie":
 		collision.collider.takeDamage(source, bulletDirection, damage, damageType, additionalEffects)
 		queue_free()
 		

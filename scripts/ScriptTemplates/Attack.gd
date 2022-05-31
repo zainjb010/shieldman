@@ -28,6 +28,7 @@ onready var castTimer = $CastTimer
 signal attackReady(node)
 
 func _ready():
+	#If an attack resource is given, sets stats to match those
 	if data:
 		attackName = data.name
 		type = data.type
@@ -50,12 +51,10 @@ func _ready():
 	castTimer.wait_time = castTime
 
 func _on_Timer_timeout():
-	if get_parent().get_parent().get_meta("type") == "party":
-		print(attackName, " refreshed")
+	#When the cooldown timer ends, signals to add the attack back to the available attacks
 	emit_signal("attackReady", self)
 	pass
 
 func _on_CastTimer_timeout():
-	if get_parent().get_parent().get_meta("type") == "party":
-		print(attackName, " cast time complete ", castTime)
+	#When the cast timer ends, starts the cooldown timer
 	refreshTimer.start()

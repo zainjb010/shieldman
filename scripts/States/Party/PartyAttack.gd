@@ -14,5 +14,4 @@ func update(delta):
 	if attack:
 		owner.castTime = attack.castTime
 		owner.attack(attack)
-		print("attacking with ", attack.attackName)
 		emit_signal("finished", "cast")

@@ -34,7 +34,8 @@ func _ready():
 	leftMiddle.position.y = size.y * -.5
 	rightMiddle.position.y = size.y * .5
 	right.position.y = size.y
-	rotation = get_angle_to(direction)
+	rotation = source.get_angle_to(direction)
+	global_position = source.global_position
 	#position.x = size.x
 	sprite.texture = castTexture
 	set_meta("type", "wave")

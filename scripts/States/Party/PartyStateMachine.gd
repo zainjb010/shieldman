@@ -10,5 +10,4 @@ func _ready():
 
 func changeState(stateName):
 	#Handle which states are pushed onto the automaton
-	print(stateName)
 	.changeState(stateName)
