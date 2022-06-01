@@ -4,6 +4,7 @@ func _ready():
 	statesMap = {
 		"idle": $Idle,
 		"move": $Move,
+		"avoid": $Avoid,
 		"attack": $Attack,
 		"cast": $Cast
 	}

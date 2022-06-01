@@ -1,5 +1,8 @@
 extends "res://scripts/ScriptTemplates/State.gd"
 
+func enter():
+	print("idling")
+
 func update(delta):
 	var currentTarget = owner.selectMoveTarget()
 	if currentTarget:

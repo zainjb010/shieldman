@@ -35,6 +35,10 @@ position = Vector2( 0, 50 )
 [node name="Right" type="Position2D" parent="."]
 position = Vector2( 0, 100 )
 
+[node name="End" type="Position2D" parent="."]
+position = Vector2( 400, 0 )
+
 [connection signal="body_entered" from="." to="." method="_on_Shockwave_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Wave_body_exited"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]

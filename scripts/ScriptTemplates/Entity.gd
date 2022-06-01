@@ -22,6 +22,7 @@ var moveDirection = Vector2(0, 0)
 var attackDirection = Vector2(0, 0)
 var previousPosition = Vector2(0, 0)
 var availableAttacks = []
+var currentAttack = null
 var canAttack = true
 var isStunned = false
 var castTime = 0.0
@@ -118,6 +119,7 @@ func attack(attackNode):
 	#Use the given attack and remove it from the list of available attacks
 	canAttack = false
 	recovery.start()
+	currentAttack = attackNode
 	projectileSpawner.fire(
 		self,
 		attackNode,
@@ -127,6 +129,20 @@ func attack(attackNode):
 	#Start the attack's cooldown timer and remove it from the list of available attacks
 	attackNode.castTimer.start()
 	availableAttacks.erase(attackNode)
+	pass
+
+func cancelAttack():
+	#Stop the casting and recovery timers, add the attack back to the available list
+	#Delete the associated projectile
+	print("canceling attack")
+	canAttack = true
+	recovery.stop()
+	currentAttack.castTimer.stop()
+	availableAttacks.append(currentAttack)
+	for item in projectileSpawner.projectileData.get_children():
+		if item.source == self and item.attackName == currentAttack.attackName:
+			item.queue_free()
+			break
 	pass
 
 func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects : Array) -> int:
@@ -142,7 +158,7 @@ func takeDamage(source: Node, direction : Vector2, amount: int, type: String, ad
 	for item in additionalEffects:
 		if item == "push":
 			moveDirection = direction.normalized()
-			stateMachine.changeState("knockback")
+			#stateMachine.changeState("knockback")
 	#Update health bar here
 	return amount
 

@@ -9,6 +9,7 @@ var statesMap = {}
 
 var statesStack = []
 var currentState = null
+var currentStateName = ""
 var active = false setget setActive
 
 func _ready():
@@ -33,6 +34,9 @@ func setActive(value):
 func _physics_process(delta):
 	currentState.update(delta)
 	
+func getCurrentState():
+	return currentStateName
+	
 func changeState(stateName):
 	if !active:
 		return
@@ -44,6 +48,7 @@ func changeState(stateName):
 		statesStack[0] = statesMap[stateName]
 		
 	currentState = statesStack[0]
+	currentStateName = stateName
 	emit_signal("stateChanged", currentState)
 	
 	if stateName != "previous":

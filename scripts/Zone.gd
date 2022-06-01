@@ -6,6 +6,10 @@ onready var sprite = $Sprite
 onready var durationTimer = $DurationTimer
 onready var castTimer = $CastTimer
 
+signal partyMemberEntered(position)
+signal partyMemberExited
+signal playerThreat(value)
+
 export var attackName : String
 export(NodePath) var source = null
 export var damage = 0
@@ -25,6 +29,7 @@ export var castTexture : Texture
 
 var target
 var targets = []
+var playerThreatened = false
 
 func _ready():
 	if source.get_meta("type") == "party" or source.get_meta("type") == "player":
@@ -56,6 +61,7 @@ func _on_DurationTimer_timeout():
 	if castTime == 0:
 		for item in targets:
 			item.takeDamage(source, global_position, damage, damageType, additionalEffects)
+	emit_signal("partyMemberExited")
 	queue_free()
 
 func _on_CastTimer_timeout():
@@ -66,7 +72,21 @@ func _on_CastTimer_timeout():
 		item.takeDamage(source, global_position, damage, damageType, additionalEffects)
 
 func _on_ZoneCollision_body_entered(body):
+	if body.get_meta("type") == "player":
+		emit_signal("playerThreat", true)
+		playerThreatened = true
+	if body.get_meta("type") == "party":
+		print("here")
+		connect("partyMemberEntered", body, "avoid")
+		connect("partyMemberExited", body, "stopAvoid")
+		connect("playerThreat", body, "setPlayerThreatened")
+		emit_signal("partyMemberEntered", global_position)
 	targets.append(body)
 
 func _on_ZoneCollision_body_exited(body):
+	if body.get_meta("type") == "player":
+		emit_signal("playerThreat", false)
+		playerThreatened = true
+	if body.get_meta("type") == "party":
+		emit_signal("partyMemberExited")
 	targets.erase(body)

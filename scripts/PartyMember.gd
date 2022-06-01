@@ -4,6 +4,7 @@ onready var player = get_parent().get_node("Player")
 
 signal partyMemberCreated(node)
 var partyFormationPosition = Vector2(0, 0)
+var avoidPosition = Vector2(0, 0)
 var playerThreatened = false
 
 func _ready():
@@ -44,12 +45,38 @@ func selectTarget():
 	if is_instance_valid(currentTarget):
 		return currentTarget
 
-func avoid():
+func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects : Array) -> int:
+	var damage = .takeDamage(source, direction, amount, type, additionalEffects)
+	playerThreatened = false
+	if is_instance_valid(source):
+		avoid(source.global_position)
+	recovery.start()
+	return damage
+
+func avoid(position):
 	#Called by zone or wave type attacks when the party member enters it
 	#If casting, cancels the current attack and changes to the avoid state
 	#If the playerThreatened flag is set, run away from enemies
 	#If it's not set, run toward player
+	#if stateMachine.getCurrentState() == "cast":
+	cancelAttack()
+	print("avoiding")
+	avoidPosition = position
+	stateMachine.changeState("avoid")
 	pass
+	
+func stopAvoid():
+	print("stop avoid")
+	recovery.start()
+	pass
+
+func setPlayerThreatened(value):
+	playerThreatened = value
+
+func _on_Recovery_timeout():
+	._on_Recovery_timeout()
+	if stateMachine.getCurrentState() == "avoid":
+		stateMachine.changeState("idle")
 
 #func _physics_process(delta):
 	#Finds the closest target and fires at it

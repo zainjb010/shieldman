@@ -8,6 +8,7 @@ script = ExtResource( 1 )
 name = "Magic Bolt"
 type = "missile"
 sprite = ExtResource( 2 )
+castSprite = ExtResource( 2 )
 damage = 1
 damageType = "magic"
 speed = 9.0

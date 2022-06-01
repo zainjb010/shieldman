@@ -28,13 +28,13 @@ func fire(source: Node, attack: Node, direction: Vector2):
 		projectile = meleeObject.instance()
 	if attack.type == "wave":
 		projectile = waveObject.instance()
-		projectile.direction = direction
+		projectile.direction = owner.currentTarget.global_position
 	if attack.type == "zone":
 		projectile = zoneObject.instance()
 		projectile.target = owner.currentTarget
 		
 	projectile.source = source
-	projectile.attackName = attack.name
+	projectile.attackName = attack.attackName
 	
 	projectile.spriteTexture = attack.sprite
 	projectile.castTexture = attack.castSprite

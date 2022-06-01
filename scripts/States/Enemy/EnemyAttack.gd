@@ -12,6 +12,7 @@ func update(delta):
 	if moveTarget:
 		emit_signal("finished", "move")
 	if is_instance_valid(currentTarget):
+		#var firingDirection = owner.global_position.direction_to(currentTarget.global_position)
 		var firingDirection = owner.global_position.direction_to(currentTarget.global_position)
 		owner.attackDirection = firingDirection
 	owner.attack(owner.selectAttack())
