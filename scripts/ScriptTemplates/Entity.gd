@@ -26,6 +26,7 @@ var currentAttack = null
 var canAttack = true
 var isStunned = false
 var castTime = 0.0
+var maxAttackRange = 0.0
 
 #This variable holds the resource containing the entity's stats
 export (Resource) var stats
@@ -50,6 +51,7 @@ func initialize():
 		speed = stats.speed
 		entityCollision.shape.radius = stats.collisionRadius
 		ranges.attackRangeCollision.shape.radius = stats.attackRadius
+		maxAttackRange = stats.attackRadius
 		ranges.detectionRangeCollision.shape.radius = stats.detectRadius
 		for attack in stats.attacks:
 			addAttack(attack.name)
@@ -81,6 +83,7 @@ func addAttack(attackName):
 		newAttack.duration = attack.duration
 		newAttack.castTime = attack.castTime
 		newAttack.size = attack.size
+		newAttack.rangeModifier = attack.rangeModifier
 		
 		newAttack.additionalEffects = attack.additionalEffects
 		
@@ -92,6 +95,11 @@ func addAttack(attackName):
 func move(direction, scale = 1):
 	previousPosition = global_position
 	return move_and_slide(speed * direction * scale)
+
+func changeAttackRange(value):
+	if value == 0:
+		ranges.attackRangeCollision.shape.radius = maxAttackRange
+	ranges.attackRangeCollision.shape.radius += value
 
 func selectAttack():
 	#Searches list of available attacks; returns the attack with longest cooldown
@@ -109,6 +117,7 @@ func selectAttack():
 func refreshAttack(attackNode):
 	#Function for returning an attack to the available list
 	#Accepts an Attack Node
+	print("refreshing ", attackNode.attackName)
 	availableAttacks.append(attackNode)
 	pass
 
@@ -137,12 +146,13 @@ func cancelAttack():
 	print("canceling attack")
 	canAttack = true
 	recovery.stop()
-	currentAttack.castTimer.stop()
-	availableAttacks.append(currentAttack)
-	for item in projectileSpawner.projectileData.get_children():
-		if item.source == self and item.attackName == currentAttack.attackName:
-			item.queue_free()
-			break
+	if currentAttack:
+		currentAttack.castTimer.stop()
+		availableAttacks.append(currentAttack)
+		for item in projectileSpawner.projectileData.get_children():
+			if item.source == self and item.attackName == currentAttack.attackName:
+				item.queue_free()
+				break
 	pass
 
 func takeDamage(source: Node, direction : Vector2, amount: int, type: String, additionalEffects : Array) -> int:

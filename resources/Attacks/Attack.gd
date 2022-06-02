@@ -21,5 +21,6 @@ export var firingArc : float
 export var duration : float
 export var castTime : float
 export var size : Vector2
+export var rangeModifier : float
 
 export (Array, String) var additionalEffects

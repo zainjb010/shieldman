@@ -16,6 +16,7 @@ export var firingArc = 0
 export var duration = 0
 export var castTime = 0.0
 export var size = Vector2(0, 0)
+export var rangeModifier = 0.0
 
 export var sprite : Texture
 export var castSprite : Texture
@@ -42,6 +43,7 @@ func _ready():
 		duration = data.duration
 		castTime = data.castTime
 		size = data.size
+		rangeModifier = data.rangeModifier
 		
 		sprite = data.sprite
 		castSprite = data.castSprite

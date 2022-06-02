@@ -8,4 +8,4 @@ func enter():
 	pass
 	
 func _on_Timer_timeout():
-	emit_signal("finished", "attack")
+	emit_signal("finished", "idle")

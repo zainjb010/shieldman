@@ -1,6 +1,15 @@
 extends "res://scripts/ScriptTemplates/State.gd"
 
+var nextAttack = null
+
 func update(delta):
+	var attack = owner.selectAttack()
+	if attack and attack != nextAttack:
+		print(attack.attackName)
+		nextAttack = attack
+		owner.changeAttackRange(0)
+		owner.changeAttackRange(nextAttack.rangeModifier)
+	
 	var moveTarget = owner.selectTarget()
 	var attackRadius = owner.ranges.attackRangeCollision.shape.radius
 	var partyFormation = owner.partyFormationPosition

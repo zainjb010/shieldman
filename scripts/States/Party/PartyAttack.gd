@@ -12,6 +12,9 @@ func update(delta):
 		owner.attackDirection = firingDirection
 	var attack = owner.selectAttack()
 	if attack:
+		currentTarget = owner.selectTarget()
+		if currentTarget == null or !is_instance_valid(currentTarget):
+			emit_signal("finished", "move")
 		owner.castTime = attack.castTime
 		owner.attack(attack)
 		emit_signal("finished", "cast")

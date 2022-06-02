@@ -20,4 +20,5 @@ firingArc = 0.0
 duration = 0.25
 castTime = 5.0
 size = Vector2( 200, 100 )
+rangeModifier = 0.0
 additionalEffects = [ "push" ]
