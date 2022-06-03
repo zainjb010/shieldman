@@ -168,7 +168,7 @@ func takeDamage(source: Node, direction : Vector2, amount: int, type: String, ad
 	for item in additionalEffects:
 		if item == "push":
 			moveDirection = direction.normalized()
-			#stateMachine.changeState("knockback")
+			stateMachine.changeState("knockback")
 	#Update health bar here
 	return amount
 

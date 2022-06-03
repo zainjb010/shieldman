@@ -34,6 +34,7 @@ func _input(event):
 		currentTarget = self
 		attack($Attacks/Taunt)
 	if event.is_action_pressed("ui_right_click") and availableAttacks.has($Attacks/Push):
+		#currentTarget = get_global_mouse_position()
 		attackDirection = get_global_mouse_position()
 		attack($Attacks/Push)
 	pass

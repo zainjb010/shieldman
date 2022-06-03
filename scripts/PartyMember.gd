@@ -5,6 +5,7 @@ onready var player = get_parent().get_node("Player")
 signal partyMemberCreated(node)
 var partyFormationPosition = Vector2(0, 0)
 var avoidPosition = Vector2(0, 0)
+var teleportPosition = Vector2(0, 0)
 var playerThreatened = false
 
 func _ready():

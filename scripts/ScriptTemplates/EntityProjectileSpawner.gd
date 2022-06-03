@@ -16,7 +16,7 @@ func fire(source: Node, attack: Node, direction: Vector2):
 	#Using an attack's parameters, generates the proper projectile and gives it parameters
 	var projectile
 	if attack.type == "instant":
-		owner.currentTarget.takeDamage(source, global_position, attack.damage, attack.type)
+		owner.currentTarget.takeDamage(source, global_position, attack.damage, attack.type, attack.additionalEffects)
 		return
 		
 	if attack.type == "missile":
@@ -28,7 +28,10 @@ func fire(source: Node, attack: Node, direction: Vector2):
 		projectile = meleeObject.instance()
 	if attack.type == "wave":
 		projectile = waveObject.instance()
-		projectile.direction = owner.currentTarget.global_position
+		if source.get_meta("type") == "player":
+			projectile.direction = direction
+		else:
+			projectile.direction = owner.currentTarget.global_position
 	if attack.type == "zone":
 		projectile = zoneObject.instance()
 		projectile.target = owner.currentTarget

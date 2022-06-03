@@ -15,6 +15,11 @@ func update(delta):
 		currentTarget = owner.selectTarget()
 		if currentTarget == null or !is_instance_valid(currentTarget):
 			emit_signal("finished", "move")
+			return
 		owner.castTime = attack.castTime
+		for item in attack.additionalEffects:
+			if item == "teleport" and is_instance_valid(currentTarget):
+				owner.teleportPosition = owner.global_position
+				owner.global_position = Vector2(currentTarget.global_position + currentTarget.attackDirection * -80)
 		owner.attack(attack)
 		emit_signal("finished", "cast")
