@@ -52,6 +52,9 @@ func takeDamage(source: Node, direction : Vector2, amount: int, type: String, ad
 		return 0
 	return .takeDamage(source, direction, amount, type, additionalEffects)
 	
+func _physics_process(delta):
+	var partyDirection = ranges.calculatePartyPosition()
+	partyFormation.updateFormation(partyDirection, ranges.nearbyEntities.size())
 	
 #func _physics_process(delta):
 	#if global_position != previousPosition:

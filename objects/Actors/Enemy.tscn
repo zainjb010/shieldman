@@ -51,5 +51,9 @@ collision_mask = 3
 [node name="Collision" parent="Ranges/Range" index="0"]
 shape = SubResource( 2 )
 
+[node name="Detection" parent="Ranges" index="1"]
+collision_layer = 0
+collision_mask = 3
+
 [node name="Collision" parent="Ranges/Detection" index="0"]
 shape = SubResource( 3 )

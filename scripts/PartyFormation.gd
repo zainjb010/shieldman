@@ -3,6 +3,7 @@ extends Node2D
 #This script will eventually handle different party formations, and update the party's positions
 var partyMembers = []
 var previousFacing = "down"
+var inCombat = false
 
 func newPartyMember(partyNode):
 	partyMembers.append(partyNode)
@@ -16,8 +17,37 @@ func newPartyMember(partyNode):
 func playerMove():
 	pass
 
+func resetPositions():
+	inCombat = false
+	for item in get_children():
+		item.position = Vector2(0, -100)
+		if previousFacing == "up":
+			item.position = Vector2(0, 100)
+		if previousFacing == "left":
+			item.position = Vector2(100, 0)
+		if previousFacing == "right":
+			item.position = Vector2(-100, 0)
+	#playerChangeFacing(previousFacing)
+
+func updateFormation(direction: Vector2, enemyCount: int):
+	#Set the party members' positions to be in the direction given
+	#TODO: Make the party members roam somewhat freely in an angle
+	#The size of the angle should be dependent on the enemy count, ranging from 90 - 30 degrees
+	if enemyCount == 0:
+		if inCombat == true:
+			resetPositions()
+		return
+	
+	inCombat = true
+	for item in get_children():
+		item.position = direction * 100
+	pass
+
 func playerChangeFacing(direction):
 	#When the player changes direction, update the party's positions
+	if inCombat == true:
+		previousFacing = direction
+		return
 	if direction == previousFacing:
 		return
 	for item in get_children():

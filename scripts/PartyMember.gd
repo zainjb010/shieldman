@@ -23,15 +23,16 @@ func setFormationPosition(position: Vector2):
 func selectMoveTarget():
 	#If the party member detects an enemy, it selects the closest one and moves toward it
 	#Otherwise, it follows the partyFormationPosition
-	if ranges.nearbyEntities.empty():
-		return partyFormationPosition
-	ranges.closestEntity = findClosestCanvasItemInArray(global_position, ranges.nearbyEntities)
-	if ranges.closestEntity != null:
-		moveTarget = ranges.closestEntity
-	if moveTarget == null or ! is_instance_valid(moveTarget):
-		return null
-	if is_instance_valid(moveTarget):
-		return moveTarget
+	#if ranges.nearbyEntities.empty():
+		#return partyFormationPosition
+	#ranges.closestEntity = findClosestCanvasItemInArray(global_position, ranges.nearbyEntities)
+	#if ranges.closestEntity != null:
+		#moveTarget = ranges.closestEntity
+	#if moveTarget == null or ! is_instance_valid(moveTarget):
+		#return null
+	#if is_instance_valid(moveTarget):
+		#return moveTarget
+	return partyFormationPosition
 
 func selectTarget():
 	#Finds the closest target
@@ -60,15 +61,13 @@ func avoid(position):
 	#If the playerThreatened flag is set, run away from enemies
 	#If it's not set, run toward player
 	#if stateMachine.getCurrentState() == "cast":
-	cancelAttack()
-	print("avoiding")
-	avoidPosition = position
-	stateMachine.changeState("avoid")
+	#cancelAttack()
+	#avoidPosition = position
+	#stateMachine.changeState("avoid")
 	pass
 	
 func stopAvoid():
-	print("stop avoid")
-	recovery.start()
+	#recovery.start()
 	pass
 
 func setPlayerThreatened(value):

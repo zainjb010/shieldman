@@ -12,5 +12,6 @@ export var speed : float
 export var collisionRadius : float
 export var attackRadius : float
 export var detectRadius: float
+export var threat : int
 
 export (Array, Resource) var attacks

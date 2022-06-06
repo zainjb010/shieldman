@@ -34,6 +34,7 @@ export (Resource) var stats
 export var health = 0
 var currentHealth = 0
 export var speed = 500
+export var threat = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,6 +54,8 @@ func initialize():
 		ranges.attackRangeCollision.shape.radius = stats.attackRadius
 		maxAttackRange = stats.attackRadius
 		ranges.detectionRangeCollision.shape.radius = stats.detectRadius
+		if stats.type == "baddie":
+			threat = stats.threat
 		for attack in stats.attacks:
 			addAttack(attack.name)
 	
@@ -117,7 +120,6 @@ func selectAttack():
 func refreshAttack(attackNode):
 	#Function for returning an attack to the available list
 	#Accepts an Attack Node
-	print("refreshing ", attackNode.attackName)
 	availableAttacks.append(attackNode)
 	pass
 
@@ -143,7 +145,6 @@ func attack(attackNode):
 func cancelAttack():
 	#Stop the casting and recovery timers, add the attack back to the available list
 	#Delete the associated projectile
-	print("canceling attack")
 	canAttack = true
 	recovery.stop()
 	if currentAttack:

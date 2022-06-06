@@ -2,9 +2,6 @@ extends "res://scripts/ScriptTemplates/State.gd"
 
 var nextAttack = null
 
-func enter():
-	print("idling")
-
 func update(delta):
 	var attack = owner.selectAttack()
 	if attack and attack != nextAttack:

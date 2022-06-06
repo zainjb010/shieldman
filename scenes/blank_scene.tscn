@@ -18,7 +18,7 @@ position = Vector2( 864.465, 138.049 )
 stats = ExtResource( 3 )
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 237.875, 520.887 )
+position = Vector2( 63.2589, 535.141 )
 stats = ExtResource( 5 )
 
 [node name="EnemySpawner" type="Node" parent="."]
